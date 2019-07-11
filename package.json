@@ -1,0 +1,25 @@
+{
+  "name": "@futuretense/0chain-sdk",
+  "version": "0.0.1",
+  "description": "js client library to interact with the 0Chain blockchain",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Johan Stén <johan@futuretense.io>",
+  "license": "MIT",
+  "dependencies": {
+    "bip39": "^2.5.0",
+    "elliptic": "^6.5.0",
+    "isomorphic-fetch": "^2.2.1",
+    "js-sha3": "^0.8.0",
+    "secure-random": "^1.1.2",
+    "with-query": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.6.2",
+    "typescript": "^3.5.3"
+  }
+}

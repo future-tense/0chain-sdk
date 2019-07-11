@@ -1,0 +1,5 @@
+src/*
+.idea
+tsconfig.json
+test.js
+example.js
