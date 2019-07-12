@@ -150,7 +150,9 @@ export class Network {
         return res.entity;
     }
 
-    public async waitForTransactionToFinish(hash) {
+    public async waitForTransactionToFinish(
+        hash: string
+    ): Promise<TransactionDetailResponse> {
         const numTries = 15;
 
         for (let i = 0; i < numTries; i++) {
