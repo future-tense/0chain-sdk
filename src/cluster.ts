@@ -40,14 +40,10 @@ export async function doParallelPostReqToAllMiners(
     consensusPercentage: number
 ): Promise<any> {
 
-    try {
-        const urls = miners.map(miner => miner + endpoint);
-        const promises = urls.map(url => fetchClient.post(url, postData));
-        const threshold = getThreshold(promises, consensusPercentage);
-        return await some(promises, threshold);
-    } catch (err) {
-        throw {error: err.code};
-    }
+    const urls =  miners.map(miner => miner + endpoint);
+    const promises = urls.map(url => fetchClient.post(url, postData));
+    const threshold = getThreshold(promises, consensusPercentage);
+    return await some(promises, threshold);
 }
 
 function getThreshold(promises: any[], percentage: number) {

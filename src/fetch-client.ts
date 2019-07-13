@@ -22,5 +22,9 @@ export async function post(url, data) {
         body: JSON.stringify(data)
     });
 
+    if (!res.ok) {
+        throw await res.json();
+    }
+
     return res.json();
 }
