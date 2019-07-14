@@ -7,6 +7,8 @@ import {
     TransactionResponse,
 } from './models';
 
+import { SignedTransaction } from './transaction';
+
 import { sleep } from './utils';
 
 import * as cluster from './cluster';
@@ -139,12 +141,12 @@ export class Network {
     }
 
     public async submitTransaction(
-        data: {}
+        tx: SignedTransaction
     ): Promise<TransactionResponse> {
 
         const res = await this.doParallelPostReqToAllMiners(
             Endpoints.PUT_TRANSACTION,
-            data
+            tx
         );
 
         return res.entity;

@@ -3,8 +3,9 @@ import { Network } from './network';
 import { Keypair } from './keypair';
 
 import {
+    signTransaction,
+    Transaction,
     TransactionType,
-    createTransaction
 } from './transaction';
 
 import {
@@ -51,7 +52,9 @@ export namespace client {
             );
 
             return res.balance;
-        } catch (err) {
+        }
+
+        catch (err) {
             if (err.error === 'value not present') {
                 return 0;
             }
@@ -65,14 +68,15 @@ export namespace client {
         toClientId,
         amount,
         note
-    ) {
-        return createTransaction(
+    ): Transaction {
+
+        return Transaction.create(
             keys,
             toClientId,
             amount,
             note,
             TransactionType.SEND
-        );
+        )
     }
 
     export function send(
@@ -83,13 +87,14 @@ export namespace client {
         note
     ): Promise<TransactionResponse> {
 
-        const data = createSendTransaction(
+        const tx = createSendTransaction(
             keys,
             toClientId,
             amount,
             note
         );
 
-        return network.submitTransaction(data);
+        const signedTx = signTransaction(tx, keys);
+        return network.submitTransaction(signedTx);
     }
 }

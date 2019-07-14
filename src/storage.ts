@@ -4,8 +4,9 @@ import { Network } from './network';
 import { Keypair } from './keypair';
 
 import {
-    TransactionType,
-    createTransaction
+    signTransaction,
+    Transaction,
+    TransactionType
 } from './transaction';
 
 import * as fetchClient from './fetch-client';
@@ -39,7 +40,7 @@ export namespace storage {
         payload: any
     ) {
 
-        const data = createTransaction(
+        const tx = Transaction.create(
             keys,
             '',
             0,
@@ -47,7 +48,8 @@ export namespace storage {
             TransactionType.DATA
         );
 
-        return network.submitTransaction(data);
+        const signedTx = signTransaction(tx, keys);
+        return network.submitTransaction(signedTx);
     }
 
     export function allocateStorage(
@@ -73,7 +75,7 @@ export namespace storage {
             }
         };
 
-        const data = createTransaction(
+        const tx = Transaction.create(
             keys,
             StorageSmartContractAddress,
             0,
@@ -81,7 +83,8 @@ export namespace storage {
             TransactionType.SMART_CONTRACT
         );
 
-        return network.submitTransaction(data);
+        const signedTx = signTransaction(tx, keys);
+        return network.submitTransaction(signedTx);
     }
 
     export function getStorageSmartContractStateForKey(

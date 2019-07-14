@@ -3,7 +3,8 @@ import { Network } from './network';
 import { Keypair } from './keypair';
 
 import {
-    createTransaction,
+    signTransaction,
+    Transaction,
     TransactionType
 } from './transaction';
 
@@ -23,7 +24,7 @@ export namespace faucet {
             input:  {}
         };
 
-        const data = createTransaction(
+        const tx = Transaction.create(
             keys,
             FaucetSmartContractAddress,
             amount,
@@ -31,6 +32,7 @@ export namespace faucet {
             TransactionType.SMART_CONTRACT
         );
 
-        return network.submitTransaction(data);
+        const signedTx = signTransaction(tx, keys);
+        return network.submitTransaction(signedTx);
     }
 }

@@ -11,38 +11,90 @@ export enum TransactionType {
     SMART_CONTRACT = 1000 // A smart contract transaction transaction_type
 }
 
-/**
- *
- * @param keys
- * @param toClientId
- * @param val
- * @param note
- * @param transactionType
- */
+export class Transaction {
 
-export function createTransaction(
-    keys: Keypair,
-    toClientId: string,
-    val,
-    note,
-    transactionType: TransactionType
-) {
+    client_id: string;
+    to_client_id: string;
+    transaction_value: number;
+    transaction_data: string;
+    transaction_type: TransactionType;
 
-    const timeStamp = Math.floor(new Date().getTime() / 1000);
-    const hashPayload = sha3(note);
-    const hashData = `${timeStamp}:${keys.id}:${toClientId}:${val}:${hashPayload}`;
-    const hash = sha3(hashData);
+    creation_date: number;
+    hash: string;
 
-    const signature = keys.sign(Buffer.from(hash, 'hex'));
+    constructor(
+        from: string,
+        to: string,
+        value: number,
+        note: string,
+        type: TransactionType,
+        timeStamp: number,
+        hash: string
+    ) {
+        this.client_id = from;
+        this.to_client_id = to;
+        this.transaction_value = value;
+        this.transaction_data = note;
+        this.transaction_type = type;
+        this.creation_date = timeStamp;
+        this.hash = hash;
+    }
 
-    return {
-        client_id:          keys.id,
-        transaction_value:  val,
-        transaction_data:   note,
-        transaction_type:   transactionType,
-        creation_date:      timeStamp,
-        to_client_id:       toClientId,
-        hash:               hash,
-        signature:          signature.toString('hex')
-    };
+    static create(
+        keys: Keypair,
+        to: string,
+        value: number,
+        note: string,
+        type: TransactionType,
+        timeStamp?: number
+    ): Transaction {
+
+        if (!timeStamp) {
+            timeStamp = Math.floor(new Date().getTime() / 1000);
+        }
+
+        const hashPayload = sha3(note);
+        const hashData = `${timeStamp}:${keys.id}:${to}:${value}:${hashPayload}`;
+        const hash = sha3(hashData);
+
+        return new Transaction(
+            keys.id,
+            to,
+            value,
+            note,
+            type,
+            timeStamp,
+            hash
+        )
+    }
+}
+
+export class SignedTransaction extends Transaction {
+
+    signature: string;
+
+    constructor(
+        tx: Transaction,
+        signature: string
+    ) {
+        super(
+            tx.client_id,
+            tx.to_client_id,
+            tx.transaction_value,
+            tx.transaction_data,
+            tx.transaction_type,
+            tx.creation_date,
+            tx.hash
+        );
+
+        this.signature = signature;
+    }
+}
+
+export function signTransaction(
+    tx: Transaction,
+    keys: Keypair
+): SignedTransaction {
+    const signature = keys.sign(Buffer.from(tx.hash, 'hex')).toString('hex');
+    return new SignedTransaction(tx, signature);
 }
