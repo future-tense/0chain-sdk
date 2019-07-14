@@ -43,12 +43,8 @@ const network = new sdk.Network(config);
         console.log('Balance:', balance0);
 
         console.log('Request faucet tokens');
-        const tx1 = await sdk.faucet.pour(
-            network,
-            client0.keys,
-            client0.id,
-            10 * 1e10
-        );
+        const tx1 = await sdk.Faucet.pour(client0, 10 * 1e10);
+
         const tx1Details = await network.waitForTransactionToFinish(tx1.hash);
         console.log('Faucet tx details', tx1Details);
 
