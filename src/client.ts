@@ -1,4 +1,7 @@
 
+import { sha3_256 as sha3 } from 'js-sha3';
+import * as bip39 from 'bip39';
+
 import { Network } from './network';
 import { Keypair } from './keypair';
 
@@ -16,6 +19,60 @@ import {
 enum Endpoints {
     GET_BALANCE = 'v1/client/get/balance',
     REGISTER_CLIENT = 'v1/client/put',
+}
+
+export class Client {
+
+    keys: Keypair;
+    network: Network;
+    id: string;
+
+    constructor(
+        network: Network,
+        keys: Keypair
+    ) {
+        this.network = network;
+        this.keys = keys;
+        this.id = sha3(Buffer.from(keys.publicKey, 'hex'));
+    }
+
+    register(): Promise<RegisterClientResponse> {
+        return client.register(
+            this.network,
+            this.id,
+            this.keys.publicKey
+        );
+    }
+
+    getBalance(): Promise<number> {
+        return client.getBalance(
+            this.network,
+            this.id
+        );
+    }
+
+    send(
+        to: string,
+        amount: number,
+        note?: any
+    ): Promise<TransactionResponse> {
+        return client.send(
+            this.network,
+            this.keys,
+            to,
+            amount,
+            note
+        );
+    }
+
+    static fromMnemonic(
+        network: Network,
+        phrase: string
+    ): Client {
+        const seed = bip39.mnemonicToSeed(phrase).slice(32);
+        const keys = Keypair.fromSeed(seed);
+        return new Client(network, keys);
+    }
 }
 
 export namespace client {
