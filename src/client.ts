@@ -33,7 +33,7 @@ export class Client {
     ) {
         this.network = network;
         this.keys = keys;
-        this.id = sha3(Buffer.from(keys.publicKey, 'hex'));
+        this.id = sha3(keys.publicKey);
     }
 
     register(): Promise<RegisterClientResponse> {
@@ -59,6 +59,7 @@ export class Client {
         return client.send(
             this.network,
             this.keys,
+            this.id,
             to,
             amount,
             note
@@ -80,11 +81,11 @@ export namespace client {
     export async function register(
         network: Network,
         id: string,
-        pubKey: string
+        pubKey: Buffer
     ): Promise<RegisterClientResponse> {
 
         const data = {
-            public_key: pubKey,
+            public_key: pubKey.toString('hex'),
             id: id
         };
 
@@ -139,14 +140,15 @@ export namespace client {
     export function send(
         network: Network,
         keys: Keypair,
-        toClientId: string,
+        from: string,
+        to: string,
         amount: number,
         note: any
     ): Promise<TransactionResponse> {
 
         const tx = createSendTransaction(
-            keys.id,
-            toClientId,
+            from,
+            to,
             amount,
             note
         );

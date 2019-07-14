@@ -16,6 +16,7 @@ export namespace faucet {
     export function pour(
         network: Network,
         keys: Keypair,
+        clientId: string,
         amount: number
     ) {
 
@@ -25,7 +26,7 @@ export namespace faucet {
         };
 
         const tx = Transaction.create(
-            keys.id,
+            clientId,
             FaucetSmartContractAddress,
             amount,
             JSON.stringify(payload),

@@ -37,10 +37,11 @@ export namespace storage {
     export function storeData(
         network: Network,
         keys: Keypair,
+        clientId: string,
         payload: any
     ) {
         const tx = Transaction.create(
-            keys.id,
+            clientId,
             '',
             0,
             payload,
@@ -54,6 +55,7 @@ export namespace storage {
     export function allocateStorage(
         network: Network,
         keys: Keypair,
+        clientId: string,
         num_writes,
         data_shards,
         parity_shards,
@@ -74,7 +76,7 @@ export namespace storage {
         };
 
         const tx = Transaction.create(
-            keys.id,
+            clientId,
             StorageSmartContractAddress,
             0,
             JSON.stringify(payload),

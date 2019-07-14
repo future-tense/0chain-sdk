@@ -34,28 +34,35 @@ const network = new sdk.Network(config);
         const recentBlocks = await network.getRecentFinalized();
         console.log('recentBlocks', recentBlocks);
 
-        const keys0 = await sdk.generateWallet();
-        const tx0 = await sdk.client.register(network, keys0.id, keys0.publicKey);
+        const phrase0 = sdk.generateMnemonic();
+        const client0 = sdk.Client.fromMnemonic(network, phrase0);
+        const tx0 = await client0.register();
         await network.waitForTransactionToFinish(tx0.hash);
 
-        const balance0 = await sdk.client.getBalance(network, keys0.id);
+        const balance0 = await client0.getBalance();
         console.log('Balance:', balance0);
 
         console.log('Request faucet tokens');
-        const tx1 = await sdk.faucet.pour(network, keys0, 10 * 1e10);
+        const tx1 = await sdk.faucet.pour(
+            network,
+            client0.keys,
+            client0.id,
+            10 * 1e10
+        );
         const tx1Details = await network.waitForTransactionToFinish(tx1.hash);
         console.log('Faucet tx details', tx1Details);
 
-        const balance1 = await sdk.client.getBalance(network, keys0.id);
+        const balance1 = await client0.getBalance();
         console.log('Balance:', balance1);
 
-        const keys1 = await sdk.generateWallet();
-        const tx2 = await sdk.client.register(network, keys1.id, keys1.publicKey);
+        const phrase1 = await sdk.generateMnemonic();
+        const client1 = sdk.Client.fromMnemonic(network, phrase1);
+        const tx2 = await client1.register();
         await network.waitForTransactionToFinish(tx2.hash);
 
-        const tx3 = await sdk.client.send(network, keys0, keys1.id, 1000, '');
+        const tx3 = await client0.send(client1.id, 1000);
         await network.waitForTransactionToFinish(tx3.hash);
-        const balance2 = await sdk.client.getBalance(network, keys0.id);
+        const balance2 = await client0.getBalance();
         console.log('Balance:', balance2);
     }
 
