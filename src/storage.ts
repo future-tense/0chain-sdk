@@ -34,6 +34,15 @@ export namespace storage {
         MONETIZE = 'Monetize'
     }
 
+    export type AllocationOptions = {
+        num_writes: number,
+        data_shards: number,
+        parity_shards: number,
+        type: AllocationType,
+        size: number,
+        expiration_date: number
+    }
+
     export function storeData(
         network: Network,
         keys: Keypair,
@@ -56,23 +65,11 @@ export namespace storage {
         network: Network,
         keys: Keypair,
         clientId: string,
-        num_writes,
-        data_shards,
-        parity_shards,
-        type: AllocationType,
-        size,
-        expiration_date
+        options: AllocationOptions
     ) {
         const payload = {
             name: 'new_allocation_request',
-            input: {
-                num_writes: num_writes,
-                data_shards: data_shards,
-                parity_shards: parity_shards,
-                type: type,
-                size: size,
-                expiration_date: expiration_date
-            }
+            input: options
         };
 
         const tx = Transaction.create(
