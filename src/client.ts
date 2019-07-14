@@ -64,15 +64,15 @@ export namespace client {
     }
 
     export function createSendTransaction(
-        keys: Keypair,
-        toClientId,
-        amount,
-        note
+        from: string,
+        to: string,
+        amount: number,
+        note: any
     ): Transaction {
 
         return Transaction.create(
-            keys,
-            toClientId,
+            from,
+            to,
             amount,
             note,
             TransactionType.SEND
@@ -82,13 +82,13 @@ export namespace client {
     export function send(
         network: Network,
         keys: Keypair,
-        toClientId,
-        amount,
-        note
+        toClientId: string,
+        amount: number,
+        note: any
     ): Promise<TransactionResponse> {
 
         const tx = createSendTransaction(
-            keys,
+            keys.id,
             toClientId,
             amount,
             note

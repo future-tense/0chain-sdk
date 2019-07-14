@@ -41,7 +41,7 @@ export class Transaction {
     }
 
     static create(
-        keys: Keypair,
+        from: string,
         to: string,
         value: number,
         note: string,
@@ -54,11 +54,11 @@ export class Transaction {
         }
 
         const hashPayload = sha3(note);
-        const hashData = `${timeStamp}:${keys.id}:${to}:${value}:${hashPayload}`;
+        const hashData = `${timeStamp}:${from}:${to}:${value}:${hashPayload}`;
         const hash = sha3(hashData);
 
         return new Transaction(
-            keys.id,
+            from,
             to,
             value,
             note,

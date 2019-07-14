@@ -39,9 +39,8 @@ export namespace storage {
         keys: Keypair,
         payload: any
     ) {
-
         const tx = Transaction.create(
-            keys,
+            keys.id,
             '',
             0,
             payload,
@@ -62,7 +61,6 @@ export namespace storage {
         size,
         expiration_date
     ) {
-
         const payload = {
             name: 'new_allocation_request',
             input: {
@@ -76,7 +74,7 @@ export namespace storage {
         };
 
         const tx = Transaction.create(
-            keys,
+            keys.id,
             StorageSmartContractAddress,
             0,
             JSON.stringify(payload),

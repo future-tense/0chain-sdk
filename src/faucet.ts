@@ -25,7 +25,7 @@ export namespace faucet {
         };
 
         const tx = Transaction.create(
-            keys,
+            keys.id,
             FaucetSmartContractAddress,
             amount,
             JSON.stringify(payload),
