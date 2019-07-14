@@ -19,6 +19,10 @@ export class Keypair {
         this.publicKey = pk.toString('hex');
     }
 
+    public get seed(): Buffer {
+        return this.secretKey.slice(0, 32);
+    }
+
     public sign(
         message: Buffer
     ): Buffer {
