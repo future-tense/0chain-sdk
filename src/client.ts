@@ -125,7 +125,8 @@ export namespace client {
         from: string,
         to: string,
         amount: number,
-        note: any
+        note: any,
+        timeStamp?: number
     ): Transaction {
 
         return Transaction.create(
@@ -133,7 +134,8 @@ export namespace client {
             to,
             amount,
             note,
-            TransactionType.SEND
+            TransactionType.SEND,
+            timeStamp
         )
     }
 
@@ -143,14 +145,16 @@ export namespace client {
         from: string,
         to: string,
         amount: number,
-        note: any
+        note: any,
+        timeStamp?: number
     ): Promise<TransactionResponse> {
 
         const tx = createSendTransaction(
             from,
             to,
             amount,
-            note
+            note,
+            timeStamp
         );
 
         const signedTx = signTransaction(tx, keys);

@@ -45,14 +45,16 @@ export namespace storage {
 
     export function createStoreDataTransaction(
         clientId: string,
-        payload: any
+        payload: any,
+        timeStamp?: number
     ) {
         return Transaction.create(
             clientId,
             '',
             0,
             payload,
-            TransactionType.DATA
+            TransactionType.DATA,
+            timeStamp
         );
     }
 
@@ -60,11 +62,13 @@ export namespace storage {
         network: Network,
         keys: Keypair,
         clientId: string,
-        payload: any
+        payload: any,
+        timeStamp?: number
     ) {
         const tx = createStoreDataTransaction(
             clientId,
-            payload
+            payload,
+            timeStamp
         );
 
         const signedTx = signTransaction(tx, keys);
@@ -73,7 +77,8 @@ export namespace storage {
 
     export function createAllocateStorageTransaction(
         clientId: string,
-        options: AllocationOptions
+        options: AllocationOptions,
+        timeStamp?: number
     ) {
         const payload = {
             name: 'new_allocation_request',
@@ -85,7 +90,8 @@ export namespace storage {
             StorageSmartContractAddress,
             0,
             JSON.stringify(payload),
-            TransactionType.SMART_CONTRACT
+            TransactionType.SMART_CONTRACT,
+            timeStamp
         );
     }
 
@@ -93,11 +99,13 @@ export namespace storage {
         network: Network,
         keys: Keypair,
         clientId: string,
-        options: AllocationOptions
+        options: AllocationOptions,
+        timeStamp?: number
     ) {
         const tx = createAllocateStorageTransaction(
             clientId,
-            options
+            options,
+            timeStamp
         );
 
         const signedTx = signTransaction(tx, keys);
