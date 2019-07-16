@@ -30,6 +30,26 @@ export class Faucet {
 
 export namespace faucet {
 
+    export function createPourTransaction(
+        network: Network,
+        clientId: string,
+        amount: number
+    ): Transaction {
+        const payload = {
+            name:   'pour',
+            input:  {}
+        };
+
+        return Transaction.create(
+            clientId,
+            FaucetSmartContractAddress,
+            amount,
+            JSON.stringify(payload),
+            TransactionType.SMART_CONTRACT
+        );
+    }
+
+
     export function pour(
         network: Network,
         keys: Keypair,
@@ -37,17 +57,10 @@ export namespace faucet {
         amount: number
     ): Promise<TransactionResponse> {
 
-        const payload = {
-            name:   'pour',
-            input:  {}
-        };
-
-        const tx = Transaction.create(
+        const tx = createPourTransaction(
+            network,
             clientId,
-            FaucetSmartContractAddress,
-            amount,
-            JSON.stringify(payload),
-            TransactionType.SMART_CONTRACT
+            amount
         );
 
         const signedTx = signTransaction(tx, keys);

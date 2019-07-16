@@ -43,27 +43,35 @@ export namespace storage {
         expiration_date: number
     }
 
-    export function storeData(
-        network: Network,
-        keys: Keypair,
+    export function createStoreDataTransaction(
         clientId: string,
         payload: any
     ) {
-        const tx = Transaction.create(
+        return Transaction.create(
             clientId,
             '',
             0,
             payload,
             TransactionType.DATA
         );
+    }
+
+    export function storeData(
+        network: Network,
+        keys: Keypair,
+        clientId: string,
+        payload: any
+    ) {
+        const tx = createStoreDataTransaction(
+            clientId,
+            payload
+        );
 
         const signedTx = signTransaction(tx, keys);
         return network.submitTransaction(signedTx);
     }
 
-    export function allocateStorage(
-        network: Network,
-        keys: Keypair,
+    export function createAllocateStorageTransaction(
         clientId: string,
         options: AllocationOptions
     ) {
@@ -72,12 +80,24 @@ export namespace storage {
             input: options
         };
 
-        const tx = Transaction.create(
+        return Transaction.create(
             clientId,
             StorageSmartContractAddress,
             0,
             JSON.stringify(payload),
             TransactionType.SMART_CONTRACT
+        );
+    }
+
+    export function allocateStorage(
+        network: Network,
+        keys: Keypair,
+        clientId: string,
+        options: AllocationOptions
+    ) {
+        const tx = createAllocateStorageTransaction(
+            clientId,
+            options
         );
 
         const signedTx = signTransaction(tx, keys);
