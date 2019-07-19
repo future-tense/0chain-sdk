@@ -27,14 +27,6 @@ enum BlockInfoOptions {
     FULL = 'full'
 }
 
-export interface NetworkConfig {
-    miners: string[];
-    sharders: string[];
-    transaction_timeout?: number;
-    clusterName: string;
-    signaturescheme: 'bls0chain' |'ed25519';
-}
-
 export class Network {
 
     clusterName: string;
@@ -43,7 +35,7 @@ export class Network {
     miners: string[];
     sharders: string[];
 
-    public constructor(config: NetworkConfig) {
+    public constructor(config: Network.Config) {
 
         if (typeof config != 'undefined' &&
             'sharders' in config &&
@@ -224,3 +216,15 @@ export class Network {
         );
     }
 }
+
+export namespace Network {
+
+    export interface Config {
+        miners: string[];
+        sharders: string[];
+        transaction_timeout?: number;
+        clusterName: string;
+        signaturescheme: 'bls0chain' | 'ed25519';
+    }
+}
+
