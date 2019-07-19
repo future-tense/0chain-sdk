@@ -33,7 +33,7 @@ export namespace storage {
         MONETIZE = 'Monetize'
     }
 
-    export type AllocationOptions = {
+    export interface AllocationOptions {
         num_writes: number,
         data_shards: number,
         parity_shards: number,

@@ -1,5 +1,5 @@
 
-export type ChainStatsResponse = {
+export interface ChainStatsResponse {
     block_size: number;
     count: number;
     current_round: number;
@@ -17,9 +17,9 @@ export type ChainStatsResponse = {
     rate_mean: number;
     std_dev: number;
     total_txns: number;
-};
+}
 
-export type BlockSummaryResponse = {
+export interface BlockSummaryResponse {
     version: string;
     creation_date: number;
     hash: string;
@@ -32,7 +32,7 @@ export type BlockSummaryResponse = {
     num_txns: number;
 }
 
-export type BlockResponse = {
+export interface BlockResponse {
     version: string;
     creation_date: number;
     magic_block_hash: string;
@@ -50,7 +50,7 @@ export type BlockResponse = {
     verification_tickets: VerificationTicket[];
 }
 
-export type TransactionResponse = {
+export interface TransactionResponse {
     hash: string;
     version: string;
     client_id: string;
@@ -61,23 +61,23 @@ export type TransactionResponse = {
     transaction_value: number;
     signature: string;
     creation_date: number;
-    transaction_type: number;
+    transaction_interface: number;
     transaction_output?; string;
     transaction_status: number;
     txn_output_hash?: string;
 }
 
-export type VerificationTicket = {
+export interface VerificationTicket {
     verifier_id: string;
     signature: string;
 }
 
-export type TransactionDetailResponse = {
+export interface TransactionDetailResponse {
     transaction: TransactionResponse;
     confirmation: Confirmation;
 }
 
-export type Confirmation = {
+export interface Confirmation {
     version: string;
     hash: string;
     block_hash:string;
@@ -90,12 +90,12 @@ export type Confirmation = {
     receipt_merkle_tree_path: MerkleTreePath;
 }
 
-type MerkleTreePath = {
+interface MerkleTreePath {
     nodes: string[];
     leaf_index: number;
 }
 
-export type RegisterClientResponse = {
+export interface RegisterClientResponse {
     id: string;
     version: string;
     creation_date: number;
