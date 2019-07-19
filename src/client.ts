@@ -7,8 +7,7 @@ import { Keypair } from './keypair';
 
 import {
     signTransaction,
-    Transaction,
-    TransactionType,
+    Transaction
 } from './transaction';
 
 import {
@@ -134,7 +133,7 @@ export namespace client {
             to,
             amount,
             note,
-            TransactionType.SEND,
+            Transaction.Type.SEND,
             timeStamp
         )
     }

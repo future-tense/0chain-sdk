@@ -2,22 +2,13 @@
 import { sha3_256 as sha3 } from 'js-sha3';
 import { Keypair } from './keypair';
 
-export enum TransactionType {
-    SEND = 0, // A transaction to send tokens to another account, state is maintained by account
-    LOCK_IN = 2,
-    DATA = 10, // A transaction to just store a piece of data on the block chain
-    STORAGE_WRITE = 101, // A transaction to write data to the blobber
-    STORAGE_READ  = 103,// A transaction to read data client_id the blobber
-    SMART_CONTRACT = 1000 // A smart contract transaction transaction_type
-}
-
 export class Transaction {
 
     client_id: string;
     to_client_id: string;
     transaction_value: number;
     transaction_data: string;
-    transaction_type: TransactionType;
+    transaction_type: Transaction.Type;
 
     creation_date: number;
     hash: string;
@@ -27,7 +18,7 @@ export class Transaction {
         to: string,
         value: number,
         note: string,
-        type: TransactionType,
+        type: Transaction.Type,
         timeStamp: number,
         hash: string
     ) {
@@ -45,7 +36,7 @@ export class Transaction {
         to: string,
         value: number,
         note: string,
-        type: TransactionType,
+        type: Transaction.Type,
         timeStamp?: number
     ): Transaction {
 
@@ -65,7 +56,39 @@ export class Transaction {
             type,
             timeStamp,
             hash
-        )
+        );
+    }
+}
+
+export namespace Transaction {
+
+    export enum Type {
+
+        /**
+         * A transaction to send tokens to another account
+         */
+        SEND = 0,
+        LOCK_IN = 2,
+
+        /**
+         * A transaction to store a piece of data on the block chain
+         */
+        DATA = 10,
+
+        /**
+         * A transaction to write data to the blobber
+         */
+        STORAGE_WRITE = 101,
+
+        /**
+         * A transaction to read data from the blobber
+         */
+        STORAGE_READ  = 103,
+
+        /**
+         * A smart contract transaction
+         */
+        SMART_CONTRACT = 1000
     }
 }
 

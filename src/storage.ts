@@ -5,8 +5,7 @@ import { Keypair } from './keypair';
 
 import {
     signTransaction,
-    Transaction,
-    TransactionType
+    Transaction
 } from './transaction';
 
 import * as fetchClient from './fetch-client';
@@ -53,7 +52,7 @@ export namespace storage {
             '',
             0,
             payload,
-            TransactionType.DATA,
+            Transaction.Type.DATA,
             timeStamp
         );
     }
@@ -90,7 +89,7 @@ export namespace storage {
             StorageSmartContractAddress,
             0,
             JSON.stringify(payload),
-            TransactionType.SMART_CONTRACT,
+            Transaction.Type.SMART_CONTRACT,
             timeStamp
         );
     }

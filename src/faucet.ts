@@ -5,8 +5,7 @@ import { Keypair } from './keypair';
 
 import {
     signTransaction,
-    Transaction,
-    TransactionType
+    Transaction
 } from './transaction';
 import { TransactionResponse } from './models';
 
@@ -46,7 +45,7 @@ export namespace faucet {
             FaucetSmartContractAddress,
             amount,
             JSON.stringify(payload),
-            TransactionType.SMART_CONTRACT,
+            Transaction.Type.SMART_CONTRACT,
             timeStamp
         );
     }
