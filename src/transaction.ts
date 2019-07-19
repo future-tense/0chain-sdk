@@ -13,7 +13,7 @@ export class Transaction {
     creation_date: number;
     hash: string;
 
-    constructor(
+    protected constructor(
         from: string,
         to: string,
         value: number,
@@ -96,7 +96,7 @@ export class SignedTransaction extends Transaction {
 
     signature: string;
 
-    constructor(
+    private constructor(
         tx: Transaction,
         signature: string
     ) {
@@ -112,6 +112,10 @@ export class SignedTransaction extends Transaction {
 
         this.signature = signature;
     }
+
+    static create(tx, signature): SignedTransaction {
+        return new SignedTransaction(tx, signature);
+    }
 }
 
 export function signTransaction(
@@ -119,5 +123,5 @@ export function signTransaction(
     keys: Keypair
 ): SignedTransaction {
     const signature = keys.sign(Buffer.from(tx.hash, 'hex')).toString('hex');
-    return new SignedTransaction(tx, signature);
+    return SignedTransaction.create(tx, signature);
 }
