@@ -7,7 +7,6 @@ import {
     signTransaction,
     Transaction
 } from './transaction';
-import { TransactionResponse } from './models';
 
 const FaucetSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3';
@@ -17,7 +16,7 @@ export class Faucet {
     static pour(
         client: Client,
         amount: number
-    ): Promise<TransactionResponse> {
+    ): Promise<Network.TransactionResponse> {
         return faucet.pour(
             client.network,
             client.keys,
@@ -50,14 +49,13 @@ export namespace faucet {
         );
     }
 
-
     export function pour(
         network: Network,
         keys: Keypair,
         clientId: string,
         amount: number,
         timeStamp?: number
-    ): Promise<TransactionResponse> {
+    ): Promise<Network.TransactionResponse> {
 
         const tx = createPourTransaction(
             network,

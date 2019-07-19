@@ -10,11 +10,6 @@ import {
     Transaction
 } from './transaction';
 
-import {
-    RegisterClientResponse,
-    TransactionResponse
-} from './models';
-
 enum Endpoints {
     GET_BALANCE = 'v1/client/get/balance',
     REGISTER_CLIENT = 'v1/client/put',
@@ -35,7 +30,7 @@ export class Client {
         this.id = sha3(keys.publicKey);
     }
 
-    register(): Promise<RegisterClientResponse> {
+    register(): Promise<Network.RegisterClientResponse> {
         return client.register(
             this.network,
             this.id,
@@ -54,7 +49,7 @@ export class Client {
         to: string,
         amount: number,
         note?: any
-    ): Promise<TransactionResponse> {
+    ): Promise<Network.TransactionResponse> {
         return client.send(
             this.network,
             this.keys,
@@ -81,7 +76,7 @@ export namespace client {
         network: Network,
         id: string,
         pubKey: Buffer
-    ): Promise<RegisterClientResponse> {
+    ): Promise<Network.RegisterClientResponse> {
 
         const data = {
             public_key: pubKey.toString('hex'),
@@ -146,7 +141,7 @@ export namespace client {
         amount: number,
         note: any,
         timeStamp?: number
-    ): Promise<TransactionResponse> {
+    ): Promise<Network.TransactionResponse> {
 
         const tx = createSendTransaction(
             from,
