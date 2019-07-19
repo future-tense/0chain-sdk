@@ -13,7 +13,7 @@ import { sleep } from './utils';
 
 import * as cluster from './cluster';
 
-export enum Endpoints {
+enum Endpoints {
     PUT_TRANSACTION = 'v1/transaction/put',
     GET_RECENT_FINALIZED = 'v1/block/get/recent_finalized',
     GET_LATEST_FINALIZED = 'v1/block/get/latest_finalized',
