@@ -1,6 +1,6 @@
 {
   "name": "@futuretense/0chain-sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "js client library to interact with the 0Chain blockchain",
   "main": "lib/index.js",
   "files": [
