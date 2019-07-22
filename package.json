@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "js client library to interact with the 0Chain blockchain",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
