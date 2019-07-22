@@ -46,7 +46,7 @@ export namespace storage {
         clientId: string,
         payload: any,
         timeStamp?: number
-    ) {
+    ): Transaction {
         return Transaction.create(
             clientId,
             '',
@@ -63,7 +63,7 @@ export namespace storage {
         clientId: string,
         payload: any,
         timeStamp?: number
-    ) {
+    ): Promise<Network.TransactionResponse> {
         const tx = createStoreDataTransaction(
             clientId,
             payload,
@@ -78,7 +78,7 @@ export namespace storage {
         clientId: string,
         options: AllocationOptions,
         timeStamp?: number
-    ) {
+    ): Transaction {
         const payload = {
             name: 'new_allocation_request',
             input: options
@@ -100,7 +100,7 @@ export namespace storage {
         clientId: string,
         options: AllocationOptions,
         timeStamp?: number
-    ) {
+    ): Promise<Network.TransactionResponse> {
         const tx = createAllocateStorageTransaction(
             clientId,
             options,
