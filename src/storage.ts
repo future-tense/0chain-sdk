@@ -42,6 +42,44 @@ export namespace storage {
         expiration_date: number
     }
 
+    export interface AllocationStats {
+        used_size: number,
+        num_of_writes: number,
+        num_of_reads: number,
+        total_challenges: number,
+        num_open_challenges: number,
+        num_success_challenges: number,
+        num_failed_challenges: number,
+        latest_closed_challenge: string
+    }
+
+    export interface Blobber {
+        id: string,
+        url: string
+    }
+
+    export interface BlobberDetails {
+        blobber_id: string,
+        allocation_id: string,
+        size: number,
+        allocation_root: string
+        write_marker: null | any
+        stats: AllocationStats
+    }
+        
+    export interface AllocationInfo {
+        id: string,
+        data_shards: number,
+        parity_shards: number,
+        size: number,
+        expiration_date: number,
+        blobbers: Blobber[]
+        owner_id: string,
+        owner_public_key: string,
+        stats: AllocationStats,
+        blobber_details: BlobberDetails[]
+    }
+
     export function createStoreDataTransaction(
         clientId: string,
         payload: any,
@@ -128,7 +166,7 @@ export namespace storage {
     export function getAllocationInfo(
         network: Network,
         id: string
-    ) {
+    ): Promise<AllocationInfo> {
         return network.getConsensusedInformationFromSharders(
             Endpoints.SC_REST_ALLOCATION,
             {
