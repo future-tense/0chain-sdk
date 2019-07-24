@@ -10,9 +10,13 @@ import {
     Transaction
 } from './transaction';
 
+const InterestPoolSmartContractAddress =
+    '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9';
+
 enum Endpoints {
     GET_BALANCE = 'v1/client/get/balance',
     REGISTER_CLIENT = 'v1/client/put',
+    GET_LOCKED_TOKENS = 'v1/screst/6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9/getPoolsStats'
 }
 
 export class Client {
@@ -45,6 +49,13 @@ export class Client {
         );
     }
 
+    getLockStatus(): Promise<any> {
+        return client.getLockStatus(
+            this.network,
+            this.id
+        );
+    }
+
     send(
         to: string,
         amount: number,
@@ -67,6 +78,34 @@ export class Client {
         const seed = bip39.mnemonicToSeed(phrase).slice(32);
         const keys = Keypair.fromSeed(seed);
         return new Client(network, keys);
+    }
+
+    lock(
+        amount: number,
+        hours: number,
+        minutes: number
+    ): Promise<Network.TransactionResponse> {
+
+        return client.lock(
+            this.network,
+            this.keys,
+            this.id,
+            amount,
+            hours,
+            minutes
+        )
+    }
+
+    unlock(
+        poolId: string
+    ): Promise<Network.TransactionResponse> {
+
+        return client.unlock(
+            this.network,
+            this.keys,
+            this.id,
+            poolId
+        )
     }
 }
 
@@ -115,6 +154,19 @@ export namespace client {
         }
     }
 
+    export function getLockStatus(
+        network: Network,
+        id: string
+    ): Promise<any> {
+
+        return network.getInformationFromRandomSharder(
+            Endpoints.GET_LOCKED_TOKENS,
+            {
+                client_id: id
+            }
+        );
+    }
+
     export function createSendTransaction(
         from: string,
         to: string,
@@ -149,6 +201,86 @@ export namespace client {
             amount,
             note,
             timeStamp
+        );
+
+        const signedTx = signTransaction(tx, keys);
+        return network.submitTransaction(signedTx);
+    }
+
+    export function createLockTransaction(
+        id: string,
+        amount: number,
+        hours: number,
+        minutes: number
+    ) : Transaction {
+
+        const payload = {
+            name: 'lock',
+            input: {
+                duration: `${hours}h${minutes}m`
+            }
+        };
+
+        return Transaction.create(
+            id,
+            InterestPoolSmartContractAddress,
+            amount,
+            JSON.stringify(payload),
+            Transaction.Type.SMART_CONTRACT
+        );
+    }
+
+    export function lock(
+        network: Network,
+        keys: Keypair,
+        id: string,
+        amount: number,
+        hours: number,
+        minutes: number
+    ): Promise<Network.TransactionResponse> {
+
+        const tx = createLockTransaction(
+            id,
+            amount,
+            hours,
+            minutes
+        );
+
+        const signedTx = signTransaction(tx, keys);
+        return network.submitTransaction(signedTx);
+    }
+
+    export function createUnlockTransaction(
+        id: string,
+        poolId: string
+    ) : Transaction {
+
+        const payload = {
+            name: 'unlock',
+            input: {
+                pool_id: poolId
+            }
+        };
+
+        return Transaction.create(
+            id,
+            InterestPoolSmartContractAddress,
+            0,
+            JSON.stringify(payload),
+            Transaction.Type.SMART_CONTRACT
+        );
+    }
+
+    export function unlock(
+        network: Network,
+        keys: Keypair,
+        id: string,
+        poolId: string
+    ): Promise<Network.TransactionResponse> {
+
+        const tx = createUnlockTransaction(
+            id,
+            poolId
         );
 
         const signedTx = signTransaction(tx, keys);

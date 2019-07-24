@@ -10,12 +10,16 @@ enum Endpoints {
     GET_CHAIN_STATS = 'v1/chain/get/stats',
     GET_BLOCK_INFO = 'v1/block/get',
     CHECK_TRANSACTION_STATUS = 'v1/transaction/get/confirmation',
+    CHECK_CONTRACT_STATUS = 'v1/scstate/get'
 }
 
 enum BlockInfoOptions {
     HEADER = 'header',
     FULL = 'full'
 }
+
+const InterestPoolSmartContractAddress =
+    '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9';
 
 export class Network {
 
@@ -120,6 +124,17 @@ export class Network {
         );
 
         return res.header;
+    }
+
+    public getLockingConfig(): Promise<any> {
+
+        return this.getInformationFromRandomSharder(
+            Endpoints.CHECK_CONTRACT_STATUS,
+            {
+                sc_address: InterestPoolSmartContractAddress,
+                key: InterestPoolSmartContractAddress
+            }
+        );
     }
 
     public async submitTransaction(
