@@ -139,15 +139,18 @@ export class Network {
     ): Promise<Network.TransactionDetailResponse> {
         const numTries = 15;
 
+        let res;
         for (let i = 0; i < numTries; i++) {
             await sleep(1000);
             try {
                 return await this.checkTransactionStatus(hash);
             }
-            catch (err) {}
+            catch (err) {
+                res = err;
+            }
         }
 
-        throw {};
+        throw res;
     }
 
     public async checkTransactionStatus(
