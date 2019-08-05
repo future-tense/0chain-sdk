@@ -31,6 +31,15 @@ export class Transaction {
         this.hash = hash;
     }
 
+    /**
+     *
+     * @param from
+     * @param to
+     * @param value
+     * @param note
+     * @param type
+     * @param timeStamp
+     */
     static create(
         from: string,
         to: string,
@@ -118,6 +127,11 @@ export class SignedTransaction extends Transaction {
     }
 }
 
+/**
+ *
+ * @param tx
+ * @param keys
+ */
 export function signTransaction(
     tx: Transaction,
     keys: Keypair

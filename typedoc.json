@@ -1,0 +1,12 @@
+{
+  "mode": "file",
+  "name": "0Chain SDK",
+  "out": "docs",
+  "hideGenerator": true,
+  "excludeNotExported": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "includes": "src",
+  "includeDeclarations": true
+}

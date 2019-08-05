@@ -20,12 +20,22 @@ enum Endpoints {
     GET_LOCKED_TOKENS = 'v1/screst/6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9/getPoolsStats'
 }
 
+/**
+ * High-level client API
+ */
+
 export class Client {
 
     keys: Keypair;
     network: Network;
     id: string;
 
+    /**
+     * Create a new Client instance
+     *
+     * @param network
+     * @param keys
+     */
     constructor(
         network: Network,
         keys: Keypair
@@ -35,6 +45,9 @@ export class Client {
         this.id = sha3(keys.publicKey);
     }
 
+    /**
+     * Register the Client on the network
+     */
     register(): Promise<Network.RegisterClientResponse> {
         return client.register(
             this.network,
@@ -43,6 +56,9 @@ export class Client {
         );
     }
 
+    /**
+     * Retrieve the Client balance
+     */
     getBalance(): Promise<number> {
         return client.getBalance(
             this.network,
@@ -57,6 +73,13 @@ export class Client {
         );
     }
 
+    /**
+     * Send ZCN to a client
+     *
+     * @param to
+     * @param amount
+     * @param note
+     */
     send(
         to: string,
         amount: number,
@@ -72,6 +95,12 @@ export class Client {
         );
     }
 
+    /**
+     * Create a Client instance using a mnemonic phrase
+     *
+     * @param network
+     * @param phrase
+     */
     static fromMnemonic(
         network: Network,
         phrase: string
@@ -110,6 +139,10 @@ export class Client {
     }
 }
 
+/**
+ * Low-level client API
+ */
+
 export namespace client {
 
     export async function register(
@@ -135,6 +168,7 @@ export namespace client {
         network: Network,
         id: string
     ): Promise<number> {
+
         try {
             const res = await network.getConsensusedInformationFromSharders(
                 Endpoints.GET_BALANCE,
@@ -168,6 +202,15 @@ export namespace client {
         );
     }
 
+    /**
+     * Create a Transaction instance
+     *
+     * @param from
+     * @param to
+     * @param amount
+     * @param note
+     * @param timeStamp
+     */
     export function createSendTransaction(
         from: string,
         to: string,

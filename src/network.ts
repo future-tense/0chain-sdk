@@ -191,6 +191,11 @@ export class Network {
         return result;
     }
 
+    /**
+     * @hidden
+     * @param endpoint
+     * @param params
+     */
     public getInformationFromRandomSharder(
         endpoint: string,
         params = {}
@@ -202,6 +207,11 @@ export class Network {
         );
     }
 
+    /**
+     * @hidden
+     * @param endpoint
+     * @param params
+     */
     public getConsensusedInformationFromSharders(
         endpoint: string,
         params: {},
@@ -214,6 +224,11 @@ export class Network {
         );
     }
 
+    /**
+     * @hidden
+     * @param endpoint
+     * @param postData
+     */
     public doParallelPostReqToAllMiners(
         endpoint: string,
         postData: {}

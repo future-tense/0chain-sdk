@@ -3,6 +3,13 @@ import { sha3_256 as sha3 } from 'js-sha3';
 import * as fetchClient from './fetch-client';
 import { some } from './promise-some';
 
+/**
+ *
+ * @hidden
+ * @param sharders
+ * @param endpoint
+ * @param params
+ */
 export function getInformationFromRandomSharder(
     sharders: string[],
     endpoint: string,
@@ -14,6 +21,14 @@ export function getInformationFromRandomSharder(
     return Promise.race(promises);
 }
 
+/**
+ *
+ * @hidden
+ * @param sharders
+ * @param endpoint
+ * @param params
+ * @param consensusPercentage
+ */
 export async function getConsensusedInformationFromSharders(
     sharders: string[],
     endpoint: string,
@@ -34,6 +49,13 @@ export async function getConsensusedInformationFromSharders(
     return consensusResponse;
 }
 
+/**
+ * @hidden
+ * @param miners
+ * @param endpoint
+ * @param postData
+ * @param consensusPercentage
+ */
 export async function doParallelPostReqToAllMiners(
     miners: string[],
     endpoint: string,

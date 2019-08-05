@@ -17,6 +17,10 @@ const curveA = new FP(0);
 const curveB = new FP(2);
 const fpOne = new FP(1);
 
+/**
+ * @hidden
+ * @param seed
+ */
 export function getPublicKey(seed) {
     const t = reverse(seed);
     t[0] &= 0x1f;
@@ -24,6 +28,10 @@ export function getPublicKey(seed) {
     return PAIR.G2mul(G, s);
 }
 
+/**
+ * @hidden
+ * @param pk
+ */
 export function pubkeyToBuffer(pk) {
     const a = Buffer.alloc(32);
     const b = Buffer.alloc(32);
@@ -36,6 +44,11 @@ export function pubkeyToBuffer(pk) {
     return reverse(Buffer.concat([b, a]));
 }
 
+/**
+ * @hidden
+ * @param seed
+ * @param message
+ */
 export function sign(seed, message) {
     const t = reverse(seed);
     t[0] &= 0x1f;
@@ -44,6 +57,10 @@ export function sign(seed, message) {
     return PAIR.G1mul(hm, s);
 }
 
+/**
+ * @hidden
+ * @param sig
+ */
 export function signatureToBuffer(sig) {
     const yOdd = sig.y.redc().lastbits(1);
     const sig2 = Buffer.alloc(32);

@@ -2,6 +2,13 @@
 import 'isomorphic-fetch';
 import withQuery from 'with-query';
 
+/**
+ * Perform a GET HTTP request
+ *
+ * @hidden
+ * @param url
+ * @param params
+ */
 export async function get(url, params) {
 
     const res = await fetch(withQuery(url, params));
@@ -12,6 +19,13 @@ export async function get(url, params) {
     return res.json();
 }
 
+/**
+ * Perform a POST HTTP request
+ *
+ * @hidden
+ * @param url
+ * @param data
+ */
 export async function post(url, data) {
 
     const res = await fetch(url, {
