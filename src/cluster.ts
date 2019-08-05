@@ -1,6 +1,7 @@
 
 import { sha3_256 as sha3 } from 'js-sha3';
 import * as fetchClient from './fetch-client';
+import { some } from './promise-some';
 
 export function getInformationFromRandomSharder(
     sharders: string[],
