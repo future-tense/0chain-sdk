@@ -25,6 +25,7 @@ export class Network {
 
     clusterName: string;
     consensusPercentage: number;
+    signaturescheme: 'ed25519' | 'bls0chain';
 
     miners: string[];
     sharders: string[];
@@ -34,18 +35,19 @@ export class Network {
         if (typeof config != 'undefined' &&
             'sharders' in config &&
             'sharders' in config &&
-            'clusterName' in config
+            'clusterName' in config &&
+            'signaturescheme' in config
         ) {
             this.consensusPercentage = 20;
             this.miners = config.miners;
             this.sharders = config.sharders;
             this.clusterName = config.clusterName;
+            this.signaturescheme = config.signaturescheme;
         }
 
         else {
             throw {};
         }
-
     }
 
     public getChainStats(): Promise<Network.ChainStatsResponse> {

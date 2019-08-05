@@ -1,12 +1,13 @@
 
 import * as secureRandom from 'secure-random';
 import { generate, sign } from './elliptic';
+import { Keypair } from './keypair';
 
 /**
  *
  */
 
-export class Ed25519Keypair {
+export class Ed25519Keypair implements Keypair {
 
     public readonly publicKey: Buffer;
     private readonly secretKey: Buffer;

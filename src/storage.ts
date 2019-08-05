@@ -8,7 +8,7 @@ import {
 } from './transaction';
 
 import * as fetchClient from './fetch-client';
-import { Ed25519Keypair } from './ed25519-keypair';
+import { Keypair } from './keypair';
 
 const StorageSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d7';
@@ -97,7 +97,7 @@ export namespace storage {
 
     export function storeData(
         network: Network,
-        keys: Ed25519Keypair,
+        keys: Keypair,
         clientId: string,
         payload: any,
         timeStamp?: number
@@ -134,7 +134,7 @@ export namespace storage {
 
     export function allocateStorage(
         network: Network,
-        keys: Ed25519Keypair,
+        keys: Keypair,
         clientId: string,
         options: AllocationOptions,
         timeStamp?: number

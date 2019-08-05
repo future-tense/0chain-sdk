@@ -9,7 +9,7 @@ import {
     Transaction
 } from './transaction';
 
-import { Ed25519Keypair } from './ed25519-keypair';
+import { Keypair, KeypairFactory } from './keypair';
 
 const InterestPoolSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9';
@@ -22,13 +22,13 @@ enum Endpoints {
 
 export class Client {
 
-    keys: Ed25519Keypair;
+    keys: Keypair;
     network: Network;
     id: string;
 
     constructor(
         network: Network,
-        keys: Ed25519Keypair
+        keys: Keypair
     ) {
         this.network = network;
         this.keys = keys;
@@ -77,7 +77,7 @@ export class Client {
         phrase: string
     ): Client {
         const seed = bip39.mnemonicToSeed(phrase).slice(32);
-        const keys = Ed25519Keypair.fromSeed(seed);
+        const keys = KeypairFactory.fromSeed(seed, network.signaturescheme);
         return new Client(network, keys);
     }
 
@@ -188,7 +188,7 @@ export namespace client {
 
     export function send(
         network: Network,
-        keys: Ed25519Keypair,
+        keys: Keypair,
         from: string,
         to: string,
         amount: number,
@@ -233,7 +233,7 @@ export namespace client {
 
     export function lock(
         network: Network,
-        keys: Ed25519Keypair,
+        keys: Keypair,
         id: string,
         amount: number,
         hours: number,
@@ -274,7 +274,7 @@ export namespace client {
 
     export function unlock(
         network: Network,
-        keys: Ed25519Keypair,
+        keys: Keypair,
         id: string,
         poolId: string
     ): Promise<Network.TransactionResponse> {

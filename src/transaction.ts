@@ -1,6 +1,6 @@
 
 import { sha3_256 as sha3 } from 'js-sha3';
-import { Ed25519Keypair } from './ed25519-keypair';
+import { Keypair } from './keypair';
 
 export class Transaction {
 
@@ -120,7 +120,7 @@ export class SignedTransaction extends Transaction {
 
 export function signTransaction(
     tx: Transaction,
-    keys: Ed25519Keypair
+    keys: Keypair
 ): SignedTransaction {
     const signature = keys.sign(Buffer.from(tx.hash, 'hex')).toString('hex');
     return SignedTransaction.create(tx, signature);
