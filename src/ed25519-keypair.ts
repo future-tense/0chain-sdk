@@ -2,7 +2,11 @@
 import * as secureRandom from 'secure-random';
 import { generate, sign } from './elliptic';
 
-export class Keypair {
+/**
+ *
+ */
+
+export class Ed25519Keypair {
 
     public readonly publicKey: Buffer;
     private readonly secretKey: Buffer;
@@ -15,24 +19,40 @@ export class Keypair {
         this.publicKey = pk;
     }
 
+    /**
+     * Return the seed that this Ed25519Keypair was generated with
+     */
     public get seed(): Buffer {
         return this.secretKey.slice(0, 32);
     }
 
+    /**
+     * Sign a message
+     *
+     * @param message
+     */
     public sign(
         message: Buffer
     ): Buffer {
         return sign(this.secretKey, message);
     }
 
+    /**
+     * Generate a Ed25519Keypair using a provided seed
+     *
+     * @param seed
+     */
     static fromSeed(
         seed: Buffer
-    ): Keypair {
-        return new Keypair(seed);
+    ): Ed25519Keypair {
+        return new Ed25519Keypair(seed);
     }
 
-    static random(): Keypair {
+    /**
+     * Generate a Ed25519Keypair using a random seed.
+     */
+    static random(): Ed25519Keypair {
         const seed = secureRandom(32, {type: 'Buffer'});
-        return new Keypair(seed);
+        return new Ed25519Keypair(seed);
     }
 }

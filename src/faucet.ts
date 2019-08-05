@@ -1,12 +1,12 @@
 
 import { Client } from './client';
 import { Network } from './network';
-import { Keypair } from './keypair';
 
 import {
     signTransaction,
     Transaction
 } from './transaction';
+import { Ed25519Keypair } from './ed25519-keypair';
 
 const FaucetSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3';
@@ -51,7 +51,7 @@ export namespace faucet {
 
     export function pour(
         network: Network,
-        keys: Keypair,
+        keys: Ed25519Keypair,
         clientId: string,
         amount: number,
         timeStamp?: number

@@ -3,12 +3,13 @@ import { sha3_256 as sha3 } from 'js-sha3';
 import * as bip39 from 'bip39';
 
 import { Network } from './network';
-import { Keypair } from './keypair';
 
 import {
     signTransaction,
     Transaction
 } from './transaction';
+
+import { Ed25519Keypair } from './ed25519-keypair';
 
 const InterestPoolSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9';
@@ -21,13 +22,13 @@ enum Endpoints {
 
 export class Client {
 
-    keys: Keypair;
+    keys: Ed25519Keypair;
     network: Network;
     id: string;
 
     constructor(
         network: Network,
-        keys: Keypair
+        keys: Ed25519Keypair
     ) {
         this.network = network;
         this.keys = keys;
@@ -76,7 +77,7 @@ export class Client {
         phrase: string
     ): Client {
         const seed = bip39.mnemonicToSeed(phrase).slice(32);
-        const keys = Keypair.fromSeed(seed);
+        const keys = Ed25519Keypair.fromSeed(seed);
         return new Client(network, keys);
     }
 
@@ -187,7 +188,7 @@ export namespace client {
 
     export function send(
         network: Network,
-        keys: Keypair,
+        keys: Ed25519Keypair,
         from: string,
         to: string,
         amount: number,
@@ -232,7 +233,7 @@ export namespace client {
 
     export function lock(
         network: Network,
-        keys: Keypair,
+        keys: Ed25519Keypair,
         id: string,
         amount: number,
         hours: number,
@@ -273,7 +274,7 @@ export namespace client {
 
     export function unlock(
         network: Network,
-        keys: Keypair,
+        keys: Ed25519Keypair,
         id: string,
         poolId: string
     ): Promise<Network.TransactionResponse> {
