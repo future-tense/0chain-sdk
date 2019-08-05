@@ -22,9 +22,7 @@ const fpOne = new FP(1);
  * @param seed
  */
 export function getPublicKey(seed) {
-    const t = reverse(seed);
-    t[0] &= 0x1f;
-    const s = BIG.fromBytes(t);
+    const s = maskedBigFromArray(seed);
     return PAIR.G2mul(G, s);
 }
 
@@ -50,9 +48,7 @@ export function pubkeyToBuffer(pk) {
  * @param message
  */
 export function sign(seed, message) {
-    const t = reverse(seed);
-    t[0] &= 0x1f;
-    const s = BIG.fromBytes(t);
+    const s = maskedBigFromArray(seed);
     const hm = hashAndMapToG1(message);
     return PAIR.G1mul(hm, s);
 }
@@ -69,16 +65,20 @@ export function signatureToBuffer(sig) {
     return reverse(sig2);
 }
 
+function maskedBigFromArray(x) {
+    const t = reverse(x);
+    t[0] &= 0x1f;
+    return BIG.fromBytes(t);
+}
+
 function getWeierstrass(x) {
     return new FP(x).sqr().add(curveA).mul(x).add(curveB);
 }
 
 function hashAndMapToG1(message) {
     const hash = sha256.array(message);
-    const h = reverse(hash);
-    h[0] &= 0x1f;
-
-    const t = new FP(BIG.fromBytes(h));
+    const s = maskedBigFromArray(hash);
+    const t = new FP(s);
     const negative = t.jacobi() < 0;
     const w = new FP(t)
         .sqr()
