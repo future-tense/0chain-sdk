@@ -1,6 +1,6 @@
-import { eddsa } from 'elliptic';
+import { eddsa as Eddsa } from 'elliptic';
 
-const ec = new eddsa('ed25519');
+const ec = new Eddsa('ed25519');
 
 export function generate(seed: Buffer): Buffer {
     const key = ec.keyFromSecret(seed);
