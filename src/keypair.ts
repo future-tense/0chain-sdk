@@ -11,15 +11,20 @@ export interface Keypair {
 
 export class KeypairFactory {
 
-    static fromSeed(seed: Buffer, type: 'bls0chain' | 'ed25519' = 'bls0chain') {
+    static fromSeed(
+        seed: Buffer,
+        type: 'bls0chain' | 'ed25519' = 'bls0chain'
+    ): Keypair {
         if (type === 'bls0chain') {
-            return new BlsKeypair(seed);
+            return BlsKeypair.fromSeed(seed);
         } else {
             return Ed25519Keypair.fromSeed(seed);
         }
     }
 
-    static fromRandom(type: 'bls0chain' | 'ed25519' = 'bls0chain') {
+    static random(
+        type: 'bls0chain' | 'ed25519' = 'bls0chain'
+    ): Keypair {
         const seed = secureRandom(32, {type: 'Buffer'});
         return KeypairFactory.fromSeed(seed, type);
     }

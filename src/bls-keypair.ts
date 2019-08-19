@@ -8,7 +8,7 @@ export class BlsKeypair implements Keypair {
     seed: Buffer;
     publicKey: Buffer;
 
-    constructor(
+    private constructor(
         seed: Buffer
     ) {
         const pk = bls.getPublicKey(seed);
