@@ -11,7 +11,6 @@ An unofficial javascript SDK for the 0chain blockchain
 
 ```
 import * as sdk from '@futuretense/0chain-sdk';
-
 ```
 
 
