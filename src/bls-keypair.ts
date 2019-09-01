@@ -1,27 +1,33 @@
-
 import * as secureRandom from 'secure-random';
-import * as bls from './herumi-bls-sign';
+
+import {
+    PrivateKey,
+    PublicKey
+} from '@futuretense/herumi-bls';
+
 import { Keypair } from './keypair';
 
 export class BlsKeypair implements Keypair {
 
+    _sk: PrivateKey;
+    _pk: PublicKey;
     seed: Buffer;
     publicKey: Buffer;
 
     private constructor(
         seed: Buffer
     ) {
-        const pk = bls.getPublicKey(seed);
-        this.publicKey = bls.pubkeyToBuffer(pk);
+        this._sk = PrivateKey.fromBuffer(seed);
+        this._pk = PublicKey.fromPrivateKey(this._sk);
+        this.publicKey = this._pk.toBuffer();
         this.seed = seed;
     }
 
     public sign(
         message: Buffer
     ): Buffer {
-
-        const sig = bls.sign(this.seed, message);
-        return bls.signatureToBuffer(sig);
+        return this._sk.sign(message)
+            .toBuffer();
     }
 
     static fromSeed(
