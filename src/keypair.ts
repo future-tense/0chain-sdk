@@ -7,6 +7,7 @@ export interface Keypair {
     seed: Buffer;
     publicKey: Buffer;
     sign(message: Buffer): Buffer;
+    verify(message: Buffer, signature: Buffer): boolean;
 }
 
 export class KeypairFactory {

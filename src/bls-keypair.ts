@@ -2,7 +2,8 @@ import * as secureRandom from 'secure-random';
 
 import {
     PrivateKey,
-    PublicKey
+    PublicKey,
+    Signature
 } from '@futuretense/herumi-bls';
 
 import { Keypair } from './keypair';
@@ -28,6 +29,14 @@ export class BlsKeypair implements Keypair {
     ): Buffer {
         return this._sk.sign(message)
             .toBuffer();
+    }
+
+    public verify(
+        message: Buffer,
+        signature: Buffer
+    ): boolean {
+        const sig = Signature.fromBuffer(signature);
+        return this._pk.verify(message, sig);
     }
 
     static fromSeed(

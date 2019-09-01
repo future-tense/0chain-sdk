@@ -1,6 +1,6 @@
 
 import * as secureRandom from 'secure-random';
-import { generate, sign } from './elliptic';
+import { generate, sign, verify } from './elliptic';
 import { Keypair } from './keypair';
 
 /**
@@ -36,6 +36,13 @@ export class Ed25519Keypair implements Keypair {
         message: Buffer
     ): Buffer {
         return sign(this.secretKey, message);
+    }
+
+    public verify(
+        message: Buffer,
+        signature: Buffer
+    ): boolean {
+        return verify(this.publicKey, message, signature);
     }
 
     /**
