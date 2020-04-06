@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "npx tsc",
+    "build:docs": "npx typedoc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
