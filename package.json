@@ -9,6 +9,7 @@
   "scripts": {
     "build": "npx tsc",
     "build:docs": "npx typedoc",
+    "publish:docs": "npx gh-pages -m 'Updates' -d docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.34",
+    "gh-pages": "^2.2.0",
     "typedoc": "^0.14.2",
     "typescript": "^3.8.3"
   }
