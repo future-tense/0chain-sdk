@@ -48,13 +48,11 @@ export namespace faucet {
 
     /**
      *
-     * @param network -
      * @param clientId -
      * @param amount -
      * @param timeStamp -
      */
     export function createPourTransaction(
-        network: Network,
         clientId: string,
         amount: number,
         timeStamp?: number
@@ -91,7 +89,6 @@ export namespace faucet {
     ): Promise<Network.TransactionResponse> {
 
         const tx = createPourTransaction(
-            network,
             clientId,
             amount,
             timeStamp
