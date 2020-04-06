@@ -19,6 +19,7 @@ enum Endpoints {
     // SC REST
     SC_REST = 'v1/screst/',
     SC_REST_ALLOCATION = 'v1/screst/6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d7/allocation',
+    SC_REST_ALLOCATIONS = 'v1/screst/6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d7/allocations',
 
     //BLOBBER
     ALLOCATION_FILE_LIST = '/v1/file/list/',
@@ -159,6 +160,18 @@ export namespace storage {
             {
                 key: `${keyName}:${keyValue}`,
                 sc_address: StorageSmartContractAddress
+            }
+        );
+    }
+
+    export function getAllocations(
+        network: Network,
+        clientId: string
+    ) {
+        return network.getConsensusedInformationFromSharders(
+            Endpoints.SC_REST_ALLOCATIONS,
+            {
+                client: clientId
             }
         );
     }
