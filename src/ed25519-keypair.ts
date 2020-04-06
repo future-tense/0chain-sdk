@@ -4,7 +4,7 @@ import { generate, sign, verify } from './elliptic';
 import { Keypair } from './keypair';
 
 /**
- *
+ * @public
  */
 
 export class Ed25519Keypair implements Keypair {
@@ -30,7 +30,7 @@ export class Ed25519Keypair implements Keypair {
     /**
      * Sign a message
      *
-     * @param message
+     * @param message -
      */
     public sign(
         message: Buffer
@@ -48,7 +48,7 @@ export class Ed25519Keypair implements Keypair {
     /**
      * Generate a Ed25519Keypair using a provided seed
      *
-     * @param seed
+     * @param seed -
      */
     static fromSeed(
         seed: Buffer

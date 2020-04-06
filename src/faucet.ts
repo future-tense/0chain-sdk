@@ -9,19 +9,23 @@ import {
 
 import { Keypair } from './keypair';
 
+/**
+ * @internal
+ */
+
 const FaucetSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d3';
 
 /**
- *
+ * @public
  */
 
 export class Faucet {
 
     /**
      *
-     * @param client
-     * @param amount
+     * @param client -
+     * @param amount -
      */
     static pour(
         client: Client,
@@ -37,17 +41,17 @@ export class Faucet {
 }
 
 /**
- *
+ * @public
  */
 
 export namespace faucet {
 
     /**
      *
-     * @param network
-     * @param clientId
-     * @param amount
-     * @param timeStamp
+     * @param network -
+     * @param clientId -
+     * @param amount -
+     * @param timeStamp -
      */
     export function createPourTransaction(
         network: Network,
@@ -72,11 +76,11 @@ export namespace faucet {
 
     /**
      *
-     * @param network
-     * @param keys
-     * @param clientId
-     * @param amount
-     * @param timeStamp
+     * @param network -
+     * @param keys -
+     * @param clientId -
+     * @param amount -
+     * @param timeStamp -
      */
     export function pour(
         network: Network,

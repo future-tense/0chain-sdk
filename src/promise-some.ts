@@ -3,7 +3,7 @@
  * A promise wrapper that either resolves when `threshold` or more of the
  * supplied promises are resolved, and rejects otherwise.
  *
- * @hidden
+ * @internal
  * @param promises
  * @param threshold
  */

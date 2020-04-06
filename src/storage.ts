@@ -10,6 +10,10 @@ import {
 import * as fetchClient from './fetch-client';
 import { Keypair } from './keypair';
 
+/**
+ * @internal
+ */
+
 const StorageSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d7';
 
@@ -25,6 +29,10 @@ enum Endpoints {
     ALLOCATION_FILE_LIST = '/v1/file/list/',
     FILE_META =  '/v1/file/meta/',
 }
+
+/**
+ * @public
+ */
 
 export namespace storage {
 

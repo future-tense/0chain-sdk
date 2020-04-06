@@ -22,6 +22,7 @@ enum Endpoints {
 
 /**
  * High-level client API
+ * @public
  */
 
 export class Client {
@@ -33,8 +34,8 @@ export class Client {
     /**
      * Create a new Client instance
      *
-     * @param network
-     * @param keys
+     * @param network -
+     * @param keys -
      */
     constructor(
         network: Network,
@@ -76,9 +77,9 @@ export class Client {
     /**
      * Send ZCN to a client
      *
-     * @param to
-     * @param amount
-     * @param note
+     * @param to -
+     * @param amount -
+     * @param note -
      */
     send(
         to: string,
@@ -98,8 +99,8 @@ export class Client {
     /**
      * Create a Client instance using a mnemonic phrase
      *
-     * @param network
-     * @param phrase
+     * @param network -
+     * @param phrase -
      */
     static fromMnemonic(
         network: Network,
@@ -141,6 +142,7 @@ export class Client {
 
 /**
  * Low-level client API
+ * @public
  */
 
 export namespace client {
@@ -205,11 +207,11 @@ export namespace client {
     /**
      * Create a Transaction instance
      *
-     * @param from
-     * @param to
-     * @param amount
-     * @param note
-     * @param timeStamp
+     * @param from -
+     * @param to -
+     * @param amount -
+     * @param note -
+     * @param timeStamp -
      */
     export function createSendTransaction(
         from: string,

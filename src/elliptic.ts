@@ -1,9 +1,12 @@
 import { eddsa as Eddsa } from 'elliptic';
 
+/**
+ * @internal
+ */
 const ec = new Eddsa('ed25519');
 
 /**
- * @hidden
+ * @internal
  */
 export function generate(seed: Buffer): Buffer {
     const key = ec.keyFromSecret(seed);
@@ -11,7 +14,7 @@ export function generate(seed: Buffer): Buffer {
 }
 
 /**
- * @hidden
+ * @internal
  */
 export function sign(secretKey, message): Buffer {
     const sk = secretKey.slice(0, 32);
@@ -22,7 +25,7 @@ export function sign(secretKey, message): Buffer {
 }
 
 /**
- * @hidden
+ * @internal
  */
 export function verify(publicKey, message, signature) {
     return ec.verify(

@@ -8,6 +8,10 @@ import {
 
 import { Keypair } from './keypair';
 
+/**
+ * @public
+ */
+
 export class BlsKeypair implements Keypair {
 
     _sk: PrivateKey;

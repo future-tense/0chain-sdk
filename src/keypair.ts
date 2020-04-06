@@ -3,12 +3,20 @@ import * as secureRandom from 'secure-random';
 import { Ed25519Keypair } from './ed25519-keypair';
 import { BlsKeypair } from './bls-keypair';
 
+/**
+ * @public
+ */
+
 export interface Keypair {
     seed: Buffer;
     publicKey: Buffer;
     sign(message: Buffer): Buffer;
     verify(message: Buffer, signature: Buffer): boolean;
 }
+
+/**
+ *  @public
+ */
 
 export class KeypairFactory {
 

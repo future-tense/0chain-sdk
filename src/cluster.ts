@@ -5,10 +5,10 @@ import { some } from './promise-some';
 
 /**
  *
- * @hidden
- * @param sharders
- * @param endpoint
- * @param params
+ * @internal
+ * @param sharders -
+ * @param endpoint -
+ * @param params -
  */
 export function getInformationFromRandomSharder(
     sharders: string[],
@@ -23,11 +23,11 @@ export function getInformationFromRandomSharder(
 
 /**
  *
- * @hidden
- * @param sharders
- * @param endpoint
- * @param params
- * @param consensusPercentage
+ * @internal
+ * @param sharders -
+ * @param endpoint -
+ * @param params -
+ * @param consensusPercentage -
  */
 export async function getConsensusedInformationFromSharders(
     sharders: string[],
@@ -50,11 +50,11 @@ export async function getConsensusedInformationFromSharders(
 }
 
 /**
- * @hidden
- * @param miners
- * @param endpoint
- * @param postData
- * @param consensusPercentage
+ * @internal
+ * @param miners -
+ * @param endpoint -
+ * @param postData -
+ * @param consensusPercentage -
  */
 export async function doParallelPostReqToAllMiners(
     miners: string[],
@@ -69,14 +69,21 @@ export async function doParallelPostReqToAllMiners(
     return await some(promises, threshold);
 }
 
+/**
+ * @internal
+ * @param promises -
+ * @param percentage -
+ */
 function getThreshold(promises: any[], percentage: number) {
     return Math.max(1, Math.round(promises.length * percentage / 100));
 }
 
 /**
  * This will return the most voted response
- * @param responses
- * @param threshold
+ *
+ * @internal
+ * @param responses -
+ * @param threshold -
  */
 
 function getConsensusMessageFromResponse(

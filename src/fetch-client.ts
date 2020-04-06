@@ -5,9 +5,9 @@ import withQuery from 'with-query';
 /**
  * Perform a GET HTTP request
  *
- * @hidden
- * @param url
- * @param params
+ * @internal
+ * @param url -
+ * @param params -
  */
 export async function get(url, params) {
 
@@ -23,9 +23,9 @@ export async function get(url, params) {
 /**
  * Perform a POST HTTP request
  *
- * @hidden
- * @param url
- * @param data
+ * @internal
+ * @param url -
+ * @param data -
  */
 export async function post(url, data) {
 

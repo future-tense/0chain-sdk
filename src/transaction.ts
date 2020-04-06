@@ -2,6 +2,10 @@
 import { sha3_256 as sha3 } from 'js-sha3';
 import { Keypair } from './keypair';
 
+/**
+ * @public
+ */
+
 export class Transaction {
 
     client_id: string;
@@ -33,12 +37,12 @@ export class Transaction {
 
     /**
      *
-     * @param from
-     * @param to
-     * @param value
-     * @param note
-     * @param type
-     * @param timeStamp
+     * @param from -
+     * @param to -
+     * @param value -
+     * @param note -
+     * @param type -
+     * @param timeStamp -
      */
     static create(
         from: string,
@@ -68,6 +72,10 @@ export class Transaction {
         );
     }
 }
+
+/**
+ * @public
+ */
 
 export namespace Transaction {
 
@@ -101,6 +109,10 @@ export namespace Transaction {
     }
 }
 
+/**
+ * @public
+ */
+
 export class SignedTransaction extends Transaction {
 
     signature: string;
@@ -129,8 +141,9 @@ export class SignedTransaction extends Transaction {
 
 /**
  *
- * @param tx
- * @param keys
+ * @internal
+ * @param tx -
+ * @param keys -
  */
 export function signTransaction(
     tx: Transaction,

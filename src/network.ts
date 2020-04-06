@@ -3,6 +3,10 @@ import { SignedTransaction } from './transaction';
 import { sleep } from './utils';
 import * as cluster from './cluster';
 
+/**
+ * @internal
+ */
+
 enum Endpoints {
     PUT_TRANSACTION = 'v1/transaction/put',
     GET_RECENT_FINALIZED = 'v1/block/get/recent_finalized',
@@ -13,13 +17,25 @@ enum Endpoints {
     CHECK_CONTRACT_STATUS = 'v1/scstate/get'
 }
 
+/**
+ * @internal
+ */
+
 enum BlockInfoOptions {
     HEADER = 'header',
     FULL = 'full'
 }
 
+/**
+ * @internal
+ */
+
 const InterestPoolSmartContractAddress =
     '6dba10422e368813802877a85039d3985d96760ed844092319743fb3a76712d9';
+
+/**
+ * @public
+ */
 
 export class Network {
 
@@ -192,9 +208,9 @@ export class Network {
     }
 
     /**
-     * @hidden
-     * @param endpoint
-     * @param params
+     * @internal
+     * @param endpoint -
+     * @param params -
      */
     public getInformationFromRandomSharder(
         endpoint: string,
@@ -208,9 +224,9 @@ export class Network {
     }
 
     /**
-     * @hidden
-     * @param endpoint
-     * @param params
+     * @internal
+     * @param endpoint -
+     * @param params -
      */
     public getConsensusedInformationFromSharders(
         endpoint: string,
@@ -225,9 +241,9 @@ export class Network {
     }
 
     /**
-     * @hidden
-     * @param endpoint
-     * @param postData
+     * @internal
+     * @param endpoint -
+     * @param postData -
      */
     public doParallelPostReqToAllMiners(
         endpoint: string,
@@ -241,6 +257,10 @@ export class Network {
         );
     }
 }
+
+/**
+ * @public
+ */
 
 export namespace Network {
 
@@ -355,4 +375,3 @@ export namespace Network {
         public_key: string;
     }
 }
-
