@@ -2,12 +2,17 @@
   "name": "@futuretense/0chain-sdk",
   "version": "0.0.4",
   "description": "js client library to interact with the 0Chain blockchain",
-  "main": "lib/index.js",
+  "main": "lib/commonjs/index.js",
+  "browser": "lib/esm/browser.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib"
   ],
   "scripts": {
-    "build": "npx tsc",
+    "clean": "rm -rf lib && rm -rf temp",
+    "build": "npm run build:cjs && npm run build:esm && npm run build:types",
+    "build:esm": "npx tsc -m es6 --outDir lib/esm",
+    "build:cjs": "npx tsc -m commonjs --outDir lib/commonjs",
     "build:types": "npx tsc -p tsconfig.types.json && npx api-extractor run --local",
     "build:docs": "npx typedoc",
     "publish:docs": "npx gh-pages -m 'Updates' -d docs",

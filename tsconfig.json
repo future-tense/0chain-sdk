@@ -17,6 +17,8 @@
 
     "sourceMap": false,
     "target": "es2017",
+    "moduleResolution": "Node",
+
     "outDir": "lib",
     "lib": [
       "es6",
