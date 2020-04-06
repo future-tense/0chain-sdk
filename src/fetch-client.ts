@@ -12,11 +12,12 @@ import withQuery from 'with-query';
 export async function get(url, params) {
 
     const res = await fetch(withQuery(url, params));
+    const t = await res.json();
     if (!res.ok) {
-        throw await res.json();
+        throw t;
     }
 
-    return res.json();
+    return t;
 }
 
 /**
