@@ -19,17 +19,17 @@
     "target": "es2017",
     "moduleResolution": "Node",
 
-    "outDir": "lib",
+    "outDir": "../lib",
     "lib": [
       "es6",
       "dom"
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "../src/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "../node_modules",
+    "../**/*.spec.ts"
   ]
 }
