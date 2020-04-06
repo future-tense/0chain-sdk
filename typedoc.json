@@ -8,5 +8,5 @@
   "excludeProtected": true,
   "excludeExternals": true,
   "includes": "src",
-  "includeDeclarations": true
+  "includeDeclarations": false
 }
